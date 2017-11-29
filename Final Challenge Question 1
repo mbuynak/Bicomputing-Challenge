@@ -1,0 +1,50 @@
+#Question 1
+#Import Packages
+import pandas
+import numpy
+from scipy.optimize import minimize
+from scipy.stats import norm
+import scipy.integrate as spi
+from scipy.integrate import odeint
+import matplotlib.pyplot as plt
+import re
+import os
+from plotnine import *
+
+# Directory
+os.chdir("/Users/madelinebuynak/Desktop")
+
+# load data
+data=pandas.read_csv("antibiotics.csv",header=0,index_col=0)
+
+# Custom likelihood function
+def nllike(p,obs):
+    B0=p[0]
+    B1=p[1]
+    sigma=p[2]
+    
+    expected=B0+B1*obs.x
+    nll=-1*norm(expected,sigma).logpdf(obs.y).sum()
+    return nll
+# estimate parameters by minimizing the negative log likelihood
+initialGuess=numpy.array([1,1,1])
+fit=minimize(nllike,initialGuess,method="Nelder-Mead",options={'disp': True},args=df)
+
+# Optimize
+print(fit.x)
+
+#ANOVA
+#Create a boxplot
+data.boxplot('growth', by='trt', figsize=(12, 8))
+
+ctrl = data['growth'][data.trt == 'ctrl']
+
+grps = pd.unique(data.trt.values)
+d_data = {grp:data['growth'][data.trt == grp] 
+    for grp in pd.unique(data.trt.values)}
+#Number of conditions
+k = len(pd.unique(data.trt))  
+#Conditions times Participants
+N = len(data.values)  
+#Participants in each condition
+n = data.groupby('trt').size()[0] 
