@@ -37,12 +37,14 @@ print(fit.x)
 #Create a boxplot
 data.boxplot('growth', by='trt', figsize=(12, 8))
 
-ctrl = data['growth'][data.group == 'ctrl']
+ctrl = data['growth'][data.trt == 'ctrl']
 
-grps = pd.unique(data.group.values)
-d_data = {grp:data['growth'][data.group == grp] 
-    for grp in pd.unique(data.group.values)}
-
-k = len(pd.unique(data.group))  # number of conditions
-N = len(data.values)  # conditions times participants
-n = data.groupby('group').size()[0] #Participants in each condition
+grps = pd.unique(data.trt.values)
+d_data = {grp:data['growth'][data.trt == grp] 
+    for grp in pd.unique(data.trt.values)}
+#Number of conditions
+k = len(pd.unique(data.trt))  
+#Conditions times Participants
+N = len(data.values)  
+#Participants in each condition
+n = data.groupby('trt').size()[0] 
