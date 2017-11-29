@@ -1,0 +1,12 @@
+Pseudocode Question 1
+1. load packages
+
+2. load data
+
+3. Write Custom likelihood function
+
+4. Optimize & print results
+
+5. Plot using ANOVA
+
+6. Print results as box plot
