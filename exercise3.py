@@ -9,7 +9,7 @@ def nllike_alt (p, obs):
     B0 = p[0]
     B1 = p[1]
     sigma = p[2]
-    expected = B0 + B1 * obs.group
+    expected = B0 + B1 * obs.x
     nll = -1 * scipy.stats.norm(expected, sigma).logpdf(obs.y).sum()
     return nll
 
@@ -46,7 +46,7 @@ def anova (data):
 ### the number of groups corresponds to whether the function runs a regression (24 groups)
 ### or an 'n'-level ANOVA
 def get_power (num_groups, sigma):
-    num_reps = 1
+    num_reps = 10
     
     data_list = []
     p_value_list = []
@@ -69,17 +69,19 @@ def get_power (num_groups, sigma):
         #append y to column
         data["y"] = y
         
-        
         #assign groups to data based on number of groups
         group = []
         group_len = 24 / num_groups
         for i in range(num_groups):
             for j in range(group_len):
                 group.append(i)
-        print group
         
         #append group to column
         data["group"] = group
+        
+        #if ANOVA, replace x values with group number
+        if (num_groups =< 24):
+            data["x"] = group
     
         p_value = anova(data)
         p_value_list.append(p_value)
@@ -106,8 +108,4 @@ for i in range(len(num_group_list)):
         if (sigma_list[k] >= 10):
             spaces = "  "
         print("sigma=" + str(sigma_list[k]) + spaces + str(result_list[k]))
-
-
-
-
 

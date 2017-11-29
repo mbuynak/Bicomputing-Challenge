@@ -1,0 +1,62 @@
+import needed modules
+
+#Function to return negative loglikelihood for the alternative model
+def nllike_alt ():
+    unpack variables
+    calculate expected value: y = B0 + B1 * x + E
+    nll = calculate nll(expected)
+    return nll
+    
+#Function to return negative loglikelihood for the null model
+def nllike_null ():
+    unpack variables
+    calculate expected value: y = B0 + E
+    nll = calculate nll(expected)
+    return nll
+    
+#Function to return p-value for a given dataset - can run both regression and ANOVA depending on how dataset is grouped
+def stats_test (data)
+    fit1 = calculate fit for alt model using minimize(data)
+    fit2 = calculate fit for null model using minimize(data)
+    
+    degrees_of_freedom = get_number_of_groups - 1
+    diff_in_fit = (fit2 - fit1) * 2
+    
+    p = get_p_value(diff_in_fit, degrees_of_freedom)
+    return p
+
+#Function to create a dataframe of given x and y values based on number_of_groups and sigma value
+def get_data (number_of_groups, sigma):
+    x = array of x values
+    y = x * slope + intercept + error * sigma
+    
+    group = empty array
+    group values in loop:
+        add to group(group_number)
+    make dataframe of x, y, and group
+    
+    return group
+
+#Runs stats_test ten times and gets average p value
+def monte_carlo (number_of_groups, sigma):
+    p = empty array
+    data = get_data(number_of_groups, simga)
+    loop number of 10:
+        add to p(stats_test(data))
+    return mean(p)
+    
+#Gets monte_carlo results for each combination of group number and sigma value
+def run_exercise_3_test ():
+    num_group_list = list of number of groups from prompt
+    sigma_list = list of sigma values
+    
+    loop through num_group_list:
+        loop through sigma_list:
+            average_p = monte_carlo(num_group_list[a], sigma_list[b])
+            print number_group_list[a]
+            print sigma_list[b]
+            print average_p
+            
+#Runs final functions
+run_exercise_3_test()
+
