@@ -30,11 +30,12 @@ def nllikeNull(p,obs):
 # estimate parameters by minimizing the NLL for data
 initialGuess=numpy.array([1,1])
 fitNull=minimize(nllikeNull,initialGuess,method="Nelder-Mead",options={'disp': True},args=dataFrame)
-nllNull= fit.fun #gives NLL value for null
+nllNull= fitNull.fun #gives NLL value for null
+print("Null model negative log liklihood value = ")
 print(nllNull)
 
 #Define Alternative
-def nllike(p,obs):
+def nllikeAlt(p,obs):
     B0=p[0]
     B1=p[1]
     sigma=p[2]
@@ -42,3 +43,11 @@ def nllike(p,obs):
     expectedAlt=B0+B1*obs.x
     nll=-1*norm(expectedAlt,sigma).logpdf(obs.y).sum()
     return nll
+    
+# estimate parameters by minimizing the NLL for data
+initialGuess=numpy.array([1,1,1])
+fitAlt=minimize(nllikeAlt,initialGuess,method="Nelder-Mead",options={'disp': True},args=dataFrame)
+nllAlt= fitAlt.fun #gives NLL value for null
+print("Alternative model negative log liklihood value = ") 
+print(nllAlt)
+
