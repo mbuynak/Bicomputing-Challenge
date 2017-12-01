@@ -53,12 +53,15 @@ DFbetween = k - 1
 DFwithin = N - k
 DFtotal = N - 1
 
-SSbetween = (sum(data.groupby('group').sum()['weight']**2)/n) - (data['weight'].sum()**2)/N
-sum_y_squared = sum([value**2 for value in data['weight'].values])
-SSwithin = sum_y_squared - sum(data.groupby('group').sum()['weight']**2)/n
-SStotal = sum_y_squared - (data['weight'].sum()**2)/N
+SSbetween = (sum(data.groupby('trt').sum()['growth']**2)/n) - (data['growth'].sum()**2)/N
+sum_y_squared = sum([value**2 for value in data['growth'].values])
+
+SSwithin = sum_y_squared - sum(data.groupby('trt').sum()['growth']**2)/n
+SStotal = sum_y_squared - (data['growth'].sum()**2)/N
+
 MSbetween = SSbetween/DFbetween
 MSwithin = SSwithin/DFwithin
+
 F = MSbetween/MSwithin
 p = stats.f.sf(F, DFbetween, DFwithin)
 eta_sqrd = SSbetween/SStotal
