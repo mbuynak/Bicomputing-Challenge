@@ -48,3 +48,23 @@ k = len(pd.unique(data.trt))
 N = len(data.values)  
 #Participants in each condition
 n = data.groupby('trt').size()[0] 
+
+#Sum between
+SSbetween = (sum(data.groupby('trt').sum()['growth']**2)/n) - (data['growth'].sum()**2)/N
+#Sum within
+sum_y_squared = sum([value**2 for value in data['growth'].values])
+SSwithin = sum_y_squared - sum(data.groupby('trt').sum()['growth']**2)/n
+#Sum total
+SStotal = sum_y_squared - (data['growth'].sum()**2)/N
+#Mean Between
+MSbetween = SSbetween/DFbetween
+#Mean Within	
+MSwithin = SSwithin/DFwithin
+#F-value	
+F = MSbetween/MSwithin
+
+p = stats.f.sf(F, DFbetween, DFwithin)
+
+eta_sqrd = SSbetween/SStotal
+
+om_sqrd = (SSbetween - (DFbetween * MSwithin))/(SStotal + MSwithin)
