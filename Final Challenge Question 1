@@ -6,6 +6,7 @@ from scipy.optimize import minimize
 from scipy.stats import norm
 import scipy.integrate as spi
 from scipy.integrate import odeint
+from scipy import stats
 import matplotlib.pyplot as plt
 import re
 import os
@@ -33,38 +34,32 @@ fit=minimize(nllike,initialGuess,method="Nelder-Mead",options={'disp': True},arg
 # Optimize
 print(fit.x)
 
-#ANOVA
 #Create a boxplot
 data.boxplot('growth', by='trt', figsize=(12, 8))
 
 ctrl = data['growth'][data.trt == 'ctrl']
 
 grps = pd.unique(data.trt.values)
-d_data = {grp:data['growth'][data.trt == grp] 
+d_data = {grp:data['weight'][data.trt == grp] 
     for grp in pd.unique(data.trt.values)}
-#Number of conditions
-k = len(pd.unique(data.trt))  
-#Conditions times Participants
-N = len(data.values)  
-#Participants in each condition
-n = data.groupby('trt').size()[0] 
 
-#Sum between
-SSbetween = (sum(data.groupby('trt').sum()['growth']**2)/n) - (data['growth'].sum()**2)/N
-#Sum within
-sum_y_squared = sum([value**2 for value in data['growth'].values])
-SSwithin = sum_y_squared - sum(data.groupby('trt').sum()['growth']**2)/n
-#Sum total
-SStotal = sum_y_squared - (data['growth'].sum()**2)/N
-#Mean Between
+k = len(pd.unique(data.trt))  # number of conditions
+N = len(data.values)  # conditions times participants
+n = data.groupby('trt').size()[0] #Participants in each condition
+
+#ANOVA
+F, p = stats.f_oneway(d_data['ctrl'], d_data['trt1'], d_data['trt2'])
+DFbetween = k - 1
+DFwithin = N - k
+DFtotal = N - 1
+
+SSbetween = (sum(data.groupby('group').sum()['weight']**2)/n) - (data['weight'].sum()**2)/N
+sum_y_squared = sum([value**2 for value in data['weight'].values])
+SSwithin = sum_y_squared - sum(data.groupby('group').sum()['weight']**2)/n
+SStotal = sum_y_squared - (data['weight'].sum()**2)/N
 MSbetween = SSbetween/DFbetween
-#Mean Within	
 MSwithin = SSwithin/DFwithin
-#F-value	
 F = MSbetween/MSwithin
-
 p = stats.f.sf(F, DFbetween, DFwithin)
-
 eta_sqrd = SSbetween/SStotal
-
 om_sqrd = (SSbetween - (DFbetween * MSwithin))/(SStotal + MSwithin)
