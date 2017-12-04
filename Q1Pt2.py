@@ -51,3 +51,11 @@ nllAlt= fitAlt.fun #gives NLL value for null
 print("Alternative model negative log liklihood value = ") 
 print(nllAlt)
 
+### Calculating D values
+Dval = 2*(nllNull-nllAlt)
+print("D-value= ",Dval)
+
+### P value calculation
+pval1=1-scipy.stats.chi2.cdf(x=Dval,df=1)
+print(pval1)
+
