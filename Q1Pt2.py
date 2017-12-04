@@ -56,6 +56,6 @@ Dval = 2*(nllNull-nllAlt)
 print("D-value= ",Dval)
 
 ### P value calculation
-pval1=1-scipy.stats.chi2.cdf(x=Dval,df=1)
-print(pval1)
+pval=1-scipy.stats.chi2.cdf(x=Dval,df=1)
+print(pval)
 
