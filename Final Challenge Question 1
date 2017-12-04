@@ -34,6 +34,15 @@ fit=minimize(nllike,initialGuess,method="Nelder-Mead",options={'disp': True},arg
 # Optimize
 print(fit.x)
 
+#Alternative
+def alter(p,obs1,obs2):
+    B0=p[0]
+    B1=p[1]
+    sigma=p[2]
+    expected=B0+B1*obs1
+    nll=-1*norm(expected,sigma).logpdf(obs2).sum()
+    return nll  
+    
 #Create a boxplot
 data.boxplot('growth', by='trt', figsize=(12, 8))
 
