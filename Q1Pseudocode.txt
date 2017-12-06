@@ -1,12 +1,29 @@
 Pseudocode Question 1
-1. load packages
+load packages
 
-2. load data
+find directory & load data
 
-3. Write Custom likelihood function
+Print data 
 
-4. Optimize & print results
+Write Custom likelihood function
 
-5. Plot using ANOVA
+#like
+def nllike():
+ 	unpack variables
+    	calculate expected value:  y = B0 + E
+    	nll = calculate nll(expected)
+    	return nll
 
-6. Print results as box plot
+#estimate parameters by minimizing log function
+
+#alternative
+
+def alter():
+unpack variables
+    	calculate expected value: y = B0 + B1 * x + E
+    	nll = calculate nll(expected)
+    	return nll
+
+Optimize & print results
+
+Write Anova Function
