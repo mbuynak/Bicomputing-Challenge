@@ -58,8 +58,8 @@ N = len(data.values)  # conditions times participants
 n = data.groupby('trt').size()[0] #Participants in each condition
 
 #ANOVA
-#2-level ANOVA
-def nllike_anova_2(p,obs):
+#one wayANOVA
+def nllike_anova_1(p,obs):
     B0=p[0]
     B1=p[1]
     sigma=p[2]
