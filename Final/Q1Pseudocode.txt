@@ -26,4 +26,4 @@ unpack variables
 
 Optimize & print results
 
-Write Anova Function
+Write One-way Anova Function (only tested growth)
