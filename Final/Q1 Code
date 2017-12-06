@@ -58,6 +58,14 @@ N = len(data.values)  # conditions times participants
 n = data.groupby('trt').size()[0] #Participants in each condition
 
 #ANOVA
+#2-level ANOVA
+def nllike_anova_2(p,obs):
+    B0=p[0]
+    B1=p[1]
+    sigma=p[2]
+    expected=B0+B1*obs.x1
+    nll=-1*norm(expected,sigma).logpdf(obs.y).sum()
+    return nll 
 F, p = stats.f_oneway(d_data['ctrl'], d_data['trt1'], d_data['trt2'])
 DFbetween = k - 1
 DFwithin = N - k
