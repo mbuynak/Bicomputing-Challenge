@@ -1,0 +1,23 @@
+Comments for other group:
+ORGANIZATION & DOCUMENTATION
+- Better organization: naming folders by parts, not by group members, would make it easier to navigate
+- Numbering parts or step number for descriptive file names
+- Missing a lot of pseudocode and documentation
+- Jupyter notebook for seeing output of code without running it
+- Missing clear explanation of output
+
+CODE:
+- sortTranscripts.sh - good commenting, but stuff at the bottom might not be needed since it could be confusing
+- translate.py - ok commenting, would like better descriptions of the functions used and more comments inside functions
+- hmmbuild.sh - commenting is ok - would like a description of where your extra files are coming from
+- finalhmmout.txt - looks like the output file, but would like some extra documentation about it so we know what it means
+
+--- Comments for us ---
+Error message in exercise3.py
+Part3 run very long - optimization needed?
+Pseudocode is different between Q1 and Q3 - better pseudocode in Q3
+Check part1 null and alt hypothesis functions
+Part1 - is the alt model actually called in the code
+Informative commit messages
+
+
