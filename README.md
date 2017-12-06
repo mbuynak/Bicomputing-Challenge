@@ -1,3 +1,3 @@
 # Bicomputing-Challenge
 
-### check the Final file for all the finalized files 
+### check the Final folder for all the finalized files 
