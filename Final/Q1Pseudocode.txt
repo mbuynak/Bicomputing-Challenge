@@ -1,0 +1,29 @@
+Pseudocode Question 1
+load packages
+
+find directory & load data
+
+Print data 
+
+Write Custom likelihood function
+
+#like
+def nllike():
+ 	unpack variables
+    	calculate expected value:  y = B0 + E
+    	nll = calculate nll(expected)
+    	return nll
+
+#estimate parameters by minimizing log function
+
+#alternative
+
+def alter():
+unpack variables
+    	calculate expected value: y = B0 + B1 * x + E
+    	nll = calculate nll(expected)
+    	return nll
+
+Optimize & print results
+
+Write Anova Function
